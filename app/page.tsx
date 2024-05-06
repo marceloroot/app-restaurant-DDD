@@ -5,8 +5,9 @@ export default function Home() {
   console.log(name);
   return (
     <Card>
-      <div className=""></div>
-      <h1 className="mx-5 bg-slate-50">Ola mundo</h1>
+      <div className="">
+        <h1 className="mx-5 bg-slate-50">Ola mundo</h1>
+      </div>
     </Card>
   );
 }
