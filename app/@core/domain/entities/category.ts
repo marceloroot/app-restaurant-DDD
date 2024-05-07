@@ -5,7 +5,7 @@ export type CategoryProps = {
   createAt: Date;
 };
 export class Category {
-  constructor(public props: CategoryProps) {}
+  constructor(private props: CategoryProps) {}
 
   get id() {
     return this.props.id;

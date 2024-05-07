@@ -1,0 +1,43 @@
+export type ProductProps = {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  discountPercentage: number;
+  restaurantId: string;
+  categoryId: string;
+  createdAt: Date;
+};
+
+export class Product {
+  constructor(private props: ProductProps) {}
+
+  get id() {
+    return this.props.id;
+  }
+  get name() {
+    return this.props.name;
+  }
+  get description() {
+    return this.props.description;
+  }
+  get imageUrl() {
+    return this.props.imageUrl;
+  }
+  get price() {
+    return this.props.price;
+  }
+  get discountPercentage() {
+    return this.props.discountPercentage;
+  }
+  get restaurantId() {
+    return this.props.restaurantId;
+  }
+  get categoryId() {
+    return this.props.categoryId;
+  }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+}
