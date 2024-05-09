@@ -25,6 +25,7 @@ jest.mock("@prisma/client", () => {
             restaurantId: "1",
             categoryId: "1",
             createdAt: new Date(),
+            restaurant: { name: "Don Marteli" },
           },
           {
             id: "2",
@@ -36,6 +37,7 @@ jest.mock("@prisma/client", () => {
             restaurantId: "1",
             categoryId: "1",
             createdAt: new Date(),
+            restaurant: { name: "Don Marteli" },
           },
         ]),
       },
@@ -48,18 +50,17 @@ jest.mock("@prisma/client", () => {
 describe("Product Tests", () => {
   let products: ProductDTO[];
   const prisma = new PrismaClient();
+
   beforeAll(async () => {
     const repository = new ProductHttpRepository(prisma);
     products = await repository.findAll();
-    // const useCase = container.get<ListProductUseCase>(
-    //   Registry.ListProductUseCase
-    // );
   });
   it("should return an array of Products", async () => {
     const useCase = container.get<ListProductUseCase>(
       Registry.ListProductUseCase,
     );
     const productBase = await useCase.execute();
+
     expect(productBase.length).toBe(2);
   });
   it("should return an discont porcent", async () => {

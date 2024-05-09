@@ -13,23 +13,27 @@ export class ProductHttpRepository implements ProductRepository {
         },
       },
       take: 10,
+      include: {
+        restaurant: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
-    if (products.length <= 0) return [];
 
-    return products.map(
-      (data) =>
-        new Product({
-          id: data.id,
-          categoryId: data.categoryId,
-          createdAt: data.createdAt,
-          description: data.description,
-          discountPercentage: data.discountPercentage,
-          imageUrl: data.imageUrl,
-          name: data.name,
-          price: Number(data.price),
-          restaurantId: data.restaurantId,
-        }),
-    );
+    return products.map((data) => ({
+      id: data.id,
+      categoryId: data.categoryId,
+      createdAt: data.createdAt,
+      description: data.description,
+      discountPercentage: data.discountPercentage,
+      imageUrl: data.imageUrl,
+      name: data.name,
+      price: Number(data.price),
+      restaurantId: data.restaurantId,
+      restaurantName: data.restaurant.name, // Você precisará definir o nome do restaurante aqui
+    }));
   }
 
   calcualteTotalPrice(prodcutDto: ProductDTO): Promise<number> {
