@@ -1,7 +1,6 @@
 import Header from "@/app/_components/header";
 import Search from "@/app/_components/search";
 import CategoreList from "./_components/category-list";
-import Image from "next/image";
 import ProducList from "./_components/product-list";
 import { Button } from "./_components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
@@ -10,6 +9,7 @@ import {
   Registry,
   container,
 } from "@/app/@core/infra/container-product-registry";
+import PromoBanner from "./_components/prono-baner";
 export default async function Home() {
   const useCase = container.get<ListProductUseCase>(
     Registry.ListProductUseCase,
@@ -25,14 +25,7 @@ export default async function Home() {
         <CategoreList />
       </div>
       <div className="px-5 pt-6">
-        <Image
-          src="/promo-banner-01.png"
-          alt="Até 30 porcento de desconto nas pizzas"
-          height={0}
-          width={0}
-          className="h-auto w-full object-contain"
-          sizes="100vw"
-        />
+        <PromoBanner alt="Banner da Promoção" src="/promo-banner-01.png" />
       </div>
       <div className="space-y-4 pt-6">
         <div className="flex items-center justify-between px-5">
@@ -46,6 +39,12 @@ export default async function Home() {
           </Button>
         </div>
         <ProducList products={products} />
+      </div>
+      <div className="px-5 pt-6">
+        <PromoBanner
+          alt="Banner da Promoção apartir de 19"
+          src="/promo-banner-02.png"
+        />
       </div>
     </>
   );
