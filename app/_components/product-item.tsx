@@ -1,0 +1,50 @@
+import Image from "next/image";
+
+import { ProductDTO } from "../@core/application/usecase/product/product-dto";
+
+import { Registry, container } from "../@core/infra/container-product-registry";
+import { formatCurrency } from "../@core/application/service/formats/format-currency";
+import { CalculatePercentage } from "../@core/application/usecase/caculate-discont/calculate-percentage";
+
+interface ProductItemProps {
+  product: ProductDTO;
+}
+
+const ProductItem = async ({ product }: ProductItemProps) => {
+  const formatter = new formatCurrency();
+  const formattedPrice = formatter.execute(product.price);
+  const useCase = container.get<CalculatePercentage>(
+    Registry.CalculateDiscontPorcentage,
+  );
+  const priceWithDiscount = await useCase.execute(
+    product.price,
+    product.discountPercentage,
+  );
+
+  const formattedDiscont = formatter.execute(priceWithDiscount);
+
+  return (
+    <div className="w-[150px] min-w-[150px] ">
+      <div className="relative h-[150px] w-full">
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          fill
+          className="rounded-lg object-cover shadow-md"
+        />
+      </div>
+      <h2 className="mt-2 truncate text-sm font-semibold">{product.name}</h2>
+      <div className="flex items-center gap-1 ">
+        <h3 className="font-semibold ">{formattedDiscont}</h3>
+        {product.discountPercentage > 0 && (
+          <span className="text-xs text-muted-foreground line-through">
+            R$
+            {formattedPrice}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductItem;

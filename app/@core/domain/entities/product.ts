@@ -1,4 +1,4 @@
-export type ProductProps = {
+type ProductProps = {
   id: string;
   name: string;
   description: string;
@@ -39,5 +39,12 @@ export class Product {
   }
   get createdAt() {
     return this.props.createdAt;
+  }
+
+  calcaulateTotalPrice(): number {
+    if (this.discountPercentage <= 0) return this.props.price;
+    const discountAmount = this.price * (this.discountPercentage / 100);
+    const priceWhihtDisconted = this.price - discountAmount;
+    return priceWhihtDisconted;
   }
 }

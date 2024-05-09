@@ -2,6 +2,7 @@ import Header from "@/app/_components/header";
 import Search from "@/app/_components/search";
 import CategoreList from "./_components/category-list";
 import Image from "next/image";
+import ProducList from "./_components/product-list";
 
 export default function Home() {
   return (
@@ -22,6 +23,9 @@ export default function Home() {
           className="h-auto w-full object-contain"
           sizes="100vw"
         />
+      </div>
+      <div className="pt-6">
+        <ProducList />
       </div>
     </>
   );

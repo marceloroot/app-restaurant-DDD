@@ -1,4 +1,4 @@
-import { ListCategoryUseCase } from "@/app/@core/application/category/list-category-usecase";
+import { ListCategoryUseCase } from "@/app/@core/application/usecase/category/list-category-usecase";
 import { Registry, container } from "@/app/@core/infra/container-registry";
 
 jest.mock("@prisma/client", () => {

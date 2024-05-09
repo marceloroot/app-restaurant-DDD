@@ -1,7 +1,7 @@
 import { Container } from "inversify";
 import { db } from "./Prisma/prisma";
-import { CategoryHttpRepository } from "./gateways/category-repository";
-import { ListCategoryUseCase } from "../application/category/list-category-usecase";
+import { CategoryHttpRepository } from "./RepositoryDataBase/category-repository";
+import { ListCategoryUseCase } from "../application/usecase/category/list-category-usecase";
 
 export const Registry = {
   PrismaAdpter: Symbol.for("PrismaAdpter"),

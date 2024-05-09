@@ -53,9 +53,11 @@
 
   @layer base {
     * {
-      @apply border-border;
+      @apply box-border;
     }
+  
     body {
-      @apply bg-[#F4F4F5] text-foreground ;
+      @apply text-foreground antialiased;
     }
   }
+  
