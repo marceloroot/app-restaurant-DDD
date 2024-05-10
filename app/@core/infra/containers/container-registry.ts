@@ -1,12 +1,14 @@
 import { Container } from "inversify";
-import { db } from "./Prisma/prisma";
-import { CategoryHttpRepository } from "./RepositoryDataBase/category-repository";
-import { ListCategoryUseCase } from "../application/usecase/category/list-category-usecase";
+import { db } from "../Prisma/prisma";
+import { CategoryHttpRepository } from "../RepositoryDataBase/category-repository";
+import { ListCategoryUseCase } from "../../application/usecase/category/list-category-usecase";
+import { ListRestaurantUseCase } from "../../application/usecase/restaurat/list-restaurat-usecase";
 
 export const Registry = {
   PrismaAdpter: Symbol.for("PrismaAdpter"),
   ContainerRegistry: Symbol.for("ContainerRegistry"),
   ListCategoryUseCase: Symbol.for("ListCategoryUseCase"),
+  ListRestaurantUseCase: Symbol.for("ListRestaurantUseCase"),
 };
 
 export const container = new Container();

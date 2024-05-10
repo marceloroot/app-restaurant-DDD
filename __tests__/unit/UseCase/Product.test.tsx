@@ -7,7 +7,7 @@ import { ProductHttpRepository } from "@/app/@core/infra/RepositoryDataBase/prod
 import {
   Registry,
   container,
-} from "@/app/@core/infra/container-product-registry";
+} from "@/app/@core/infra/containers/container-product-registry";
 import { PrismaClient } from "@prisma/client";
 
 jest.mock("@prisma/client", () => {

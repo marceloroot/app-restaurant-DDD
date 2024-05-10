@@ -1,5 +1,8 @@
 import { ListCategoryUseCase } from "../@core/application/usecase/category/list-category-usecase";
-import { Registry, container } from "../@core/infra/container-registry";
+import {
+  Registry,
+  container,
+} from "../@core/infra/containers/container-registry";
 
 import { db } from "@/app/_lib/prisma";
 import CategoryItem from "./category-item";

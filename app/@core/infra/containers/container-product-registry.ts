@@ -1,9 +1,9 @@
 import { Container } from "inversify";
-import { db } from "./Prisma/prisma";
-import { ProductHttpRepository } from "./RepositoryDataBase/product-repository";
-import { ListProductUseCase } from "../application/usecase/product/list-product-usecase";
-import { CalculatePercentage } from "../application/usecase/caculate-discont/calculate-percentage";
-import { CalculatteTotalPriceUseCase } from "../application/usecase/product/calcualte-total-price";
+import { db } from "../Prisma/prisma";
+import { ProductHttpRepository } from "../RepositoryDataBase/product-repository";
+import { ListProductUseCase } from "../../application/usecase/product/list-product-usecase";
+import { CalculatePercentage } from "../../application/usecase/caculate-discont/calculate-percentage";
+import { CalculatteTotalPriceUseCase } from "../../application/usecase/product/calcualte-total-price";
 
 export const Registry = {
   PrismaAdpter: Symbol.for("PrismaAdpter"),

@@ -2,7 +2,10 @@ import Image from "next/image";
 
 import { ProductDTO } from "../@core/application/usecase/product/product-dto";
 
-import { Registry, container } from "../@core/infra/container-product-registry";
+import {
+  Registry,
+  container,
+} from "../@core/infra/containers/container-product-registry";
 import { formatCurrency } from "../@core/application/service/formats/format-currency";
 import { CalculatteTotalPriceUseCase } from "../@core/application/usecase/product/calcualte-total-price";
 import { ArrowDownIcon } from "lucide-react";

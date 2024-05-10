@@ -6,11 +6,11 @@ export class CategoryHttpRepository implements CategoryRepository {
   constructor(private prisma: PrismaClient) {}
 
   async findAll(): Promise<Category[]> {
-    const res = await this.prisma.category.findMany();
+    const categorys = await this.prisma.category.findMany();
 
-    if (res.length <= 0) return [];
+    if (categorys.length <= 0) return [];
 
-    return res.map(
+    return categorys.map(
       (data) =>
         new Category({
           id: data.id,

@@ -8,8 +8,9 @@ import { ListProductUseCase } from "@/app/@core/application/usecase/product/list
 import {
   Registry,
   container,
-} from "@/app/@core/infra/container-product-registry";
+} from "@/app/@core/infra/containers/container-product-registry";
 import PromoBanner from "./_components/prono-baner";
+import RestaurantList from "./_components/restaurant.list";
 export default async function Home() {
   const useCase = container.get<ListProductUseCase>(
     Registry.ListProductUseCase,
@@ -45,6 +46,19 @@ export default async function Home() {
           alt="Banner da Promoção apartir de 19"
           src="/promo-banner-02.png"
         />
+      </div>
+      <div className="mb-4 space-y-4 pt-6">
+        <div className="flex items-center justify-between px-5">
+          <h2>Pedidos Recomendados</h2>
+          <Button
+            variant="ghost"
+            className="h-fit p-0 text-primary hover:bg-transparent"
+          >
+            Ver Todos
+            <ChevronRightIcon size={16} />
+          </Button>
+        </div>
+        <RestaurantList />
       </div>
     </>
   );

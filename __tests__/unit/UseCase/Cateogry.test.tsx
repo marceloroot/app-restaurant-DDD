@@ -1,5 +1,8 @@
 import { ListCategoryUseCase } from "@/app/@core/application/usecase/category/list-category-usecase";
-import { Registry, container } from "@/app/@core/infra/container-registry";
+import {
+  Registry,
+  container,
+} from "@/app/@core/infra/containers/container-registry";
 
 jest.mock("@prisma/client", () => {
   return {
@@ -45,23 +48,4 @@ describe("findAll function", () => {
     const categories = await useCase.execute();
     expect(categories.length).toBe(2);
   });
-
-  // it('should return a category when a valid ID is provided', async () => {
-  //     const prisma = new PrismaClient();
-  //     const categoryRepository = new CategoryHttpRepository(prisma);
-  //     const useCase = new ListCategoryUseCase(categoryRepository);
-  //     const categoryId = '1';
-  //     const category = await useCase.findById(categoryId);
-  //     expect(category).toBeDefined();
-  //     // Adicione mais expectativas conforme necessário para verificar os dados da categoria
-  // });
-
-  // it('should return null when an invalid ID is provided', async () => {
-  //     const prisma = new PrismaClient();
-  //     const categoryRepository = new CategoryHttpRepository(prisma);
-  //     const useCase = new ListCategoryUseCase(categoryRepository);
-  //     const categoryId = 'invalidId';
-  //     const category = await useCase.findById(categoryId);
-  //     expect(category).toBeNull();
-  // });
 });
