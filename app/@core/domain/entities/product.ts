@@ -1,4 +1,6 @@
-type ProductProps = {
+import { Restaurant } from "./restaurant";
+
+export type ProductProps = {
   id: string;
   name: string;
   description: string;
@@ -12,7 +14,7 @@ type ProductProps = {
 
 export class Product {
   constructor(private props: ProductProps) {}
-
+  private restaurant: Restaurant | null = null;
   get id() {
     return this.props.id;
   }
@@ -46,5 +48,14 @@ export class Product {
     const discountAmount = this.price * (this.discountPercentage / 100);
     const priceWhihtDisconted = this.price - discountAmount;
     return priceWhihtDisconted;
+  }
+
+  associateRestaurant(restaurant: Restaurant) {
+    this.restaurant = restaurant;
+  }
+
+  // Método para obter o restaurante associado ao produto
+  getAssociatedRestaurant(): Restaurant | null {
+    return this.restaurant;
   }
 }

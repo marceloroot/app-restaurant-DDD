@@ -7,7 +7,6 @@ export class RestaurantRepositoryDataBase implements RestaurantRepository {
   constructor(private prisma: PrismaClient) {}
   async findAll(): Promise<Restaurant[]> {
     const restaurants = await this.prisma.restaurant.findMany({ take: 10 });
-    console.log("ENTROUUUU", restaurants);
     if (restaurants.length <= 0) return [];
 
     return restaurants.map(
@@ -20,5 +19,18 @@ export class RestaurantRepositoryDataBase implements RestaurantRepository {
           deliveryTimeMinutes: Number(data.deliveryTimeMinutes),
         }),
     );
+  }
+  async findById(id: string): Promise<Restaurant> {
+    const restaurant = await this.prisma.restaurant.findUnique({
+      where: { id },
+    });
+    if (!restaurant) throw new Error("No found restaurant");
+    return new Restaurant({
+      id: restaurant.id,
+      deliveryFee: Number(restaurant.deliveryFee),
+      deliveryTimeMinutes: restaurant.deliveryTimeMinutes,
+      imageUrl: restaurant.imageUrl,
+      name: restaurant.name,
+    });
   }
 }

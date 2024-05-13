@@ -6,5 +6,3 @@ it("should redender button", () => {
   const buttonElement = screen.getByRole("button");
   expect(buttonElement).toBeInTheDocument();
 });
-
-console.log(screen);

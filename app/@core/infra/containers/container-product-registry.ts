@@ -11,6 +11,7 @@ export const Registry = {
   ListProductUseCase: Symbol.for("ListProductUseCase"),
   CalculateDiscontPorcentage: Symbol.for("CalculateDiscontPorcentage"),
   CalculatteTotalPriceUseCase: Symbol.for("CalculatteTotalPriceUseCase"),
+  UniqueProductUseCase: Symbol.for("UniqueProductUseCase"),
 };
 
 export const container = new Container();

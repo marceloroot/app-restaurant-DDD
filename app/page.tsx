@@ -4,18 +4,16 @@ import CategoreList from "./_components/category-list";
 import ProducList from "./_components/product-list";
 import { Button } from "./_components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
-import { ListProductUseCase } from "@/app/@core/application/usecase/product/list-product-usecase";
-import {
-  Registry,
-  container,
-} from "@/app/@core/infra/containers/container-product-registry";
+
 import PromoBanner from "./_components/prono-baner";
 import RestaurantList from "./_components/restaurant.list";
+import { ProductUseCaseFactory } from "./@core/infra/factory/usecase/produc-use-case";
+import { db } from "./_lib/prisma";
 export default async function Home() {
-  const useCase = container.get<ListProductUseCase>(
-    Registry.ListProductUseCase,
-  );
-  const products = await useCase.execute();
+  const listProductWithRestaurant =
+    ProductUseCaseFactory.createListProductWithRestaurantUseCase(db);
+  const productsWhithRestaurant = await listProductWithRestaurant.execute();
+
   return (
     <>
       <Header />
@@ -39,7 +37,7 @@ export default async function Home() {
             <ChevronRightIcon size={16} />
           </Button>
         </div>
-        <ProducList products={products} />
+        <ProducList productWithRestaurants={productsWhithRestaurant} />
       </div>
       <div className="px-5 pt-6">
         <PromoBanner

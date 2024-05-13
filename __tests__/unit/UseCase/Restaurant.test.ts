@@ -1,9 +1,5 @@
-import { ListRestaurantUseCase } from "@/app/@core/application/usecase/restaurat/list-restaurat-usecase";
-import {
-  Registry,
-  containerRestaurant,
-} from "@/app/@core/infra/containers/container-restaurant";
-
+import { RestaurantUseCaseFactory } from "@/app/@core/infra/factory/usecase/restaurant-use-case";
+import { PrismaClient } from "@prisma/client";
 jest.mock("@prisma/client", () => {
   return {
     PrismaClient: jest.fn(() => ({
@@ -18,7 +14,7 @@ jest.mock("@prisma/client", () => {
             deliveryTimeMinutes: 20,
           },
           {
-            id: "5225e835-f154-4c9f-831b-33b4ed89dcfd",
+            id: "73f605ff-52f9-425a-b558-0ef29c1ed0f4",
             name: "The Burguer Queen",
             imageUrl:
               "https://utfs.io/f/d9834f2e-bc37-4c64-981b-cabf03018322-p3apy8.png",
@@ -26,11 +22,11 @@ jest.mock("@prisma/client", () => {
             deliveryTimeMinutes: 45,
           },
         ]),
-        findFirst: jest.fn((params) => {
+        findUnique: jest.fn((params) => {
           const id = params.where.id;
-          if (id === "1") {
+          if (id === "73f605ff-52f9-425a-b558-0ef29c1ed0f4") {
             return {
-              id: "5225e835-f154-4c9f-831b-33b4ed89dcfd",
+              id: "73f605ff-52f9-425a-b558-0ef29c1ed0f4",
               name: "The Burguer Queen",
               imageUrl:
                 "https://utfs.io/f/d9834f2e-bc37-4c64-981b-cabf03018322-p3apy8.png",
@@ -47,12 +43,12 @@ jest.mock("@prisma/client", () => {
 });
 
 describe("findAll function", () => {
+  const prisma = new PrismaClient();
   it("should return an array of restaurant", async () => {
-    const useCase = containerRestaurant.get<ListRestaurantUseCase>(
-      Registry.ListRestaurantUseCase,
-    );
-    const restaurants = await useCase.execute();
-    console.log("Restaurants", restaurants);
+    const restaurantsUseCase =
+      RestaurantUseCaseFactory.listRestaurantFactory(prisma);
+    const restaurants = await restaurantsUseCase.execute();
     expect(restaurants.length).toBe(2);
   });
+  it("should return a  restaurant", async () => {});
 });

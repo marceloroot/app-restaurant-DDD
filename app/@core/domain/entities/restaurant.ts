@@ -1,4 +1,4 @@
-type ProductProps = {
+export type RestauranttProps = {
   id: string;
   name: string;
   imageUrl: string;
@@ -7,7 +7,7 @@ type ProductProps = {
 };
 
 export class Restaurant {
-  constructor(private props: ProductProps) {}
+  constructor(private props: RestauranttProps) {}
   get id() {
     return this.props.id;
   }

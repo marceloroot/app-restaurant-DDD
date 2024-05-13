@@ -1,15 +1,21 @@
-import { ProductDTO } from "../@core/application/usecase/product/product-dto";
+import { Product } from "@prisma/client";
 import ProductItem from "./product-item";
+import { ProductWithRestaurant } from "../@core/application/usecase/product/DTO/product-with-restaurant-DTO";
 interface ProductListProps {
-  products: ProductDTO[];
+  productWithRestaurants: ProductWithRestaurant[];
 }
 
-const ProducList = async ({ products }: ProductListProps) => {
+const ProducList = async ({ productWithRestaurants }: ProductListProps) => {
   return (
     <div className="flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden md:[&::-webkit-scrollbar]:block  ">
-      {products.map((product: ProductDTO) => (
-        <ProductItem key={product.id} product={product} />
-      ))}
+      {productWithRestaurants.map(
+        (productWithRestaurant: ProductWithRestaurant) => (
+          <ProductItem
+            key={productWithRestaurant.product.id}
+            productWithRestaurant={productWithRestaurant}
+          />
+        ),
+      )}
     </div>
   );
 };
