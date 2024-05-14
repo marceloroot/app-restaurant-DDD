@@ -3,6 +3,8 @@ import { ProductHttpRepository } from "../../RepositoryDataBase/product-reposito
 import { RestaurantRepositoryDataBase } from "../../RepositoryDataBase/restaurant-repository";
 import { PrismaClient } from "@prisma/client/extension";
 import { ListProductUseCase } from "@/app/@core/application/usecase/product/list-product-usecase";
+import { ProductProps } from "@/app/@core/domain/entities/product";
+import { CalculatteTotalPriceUseCase } from "@/app/@core/application/usecase/product/calcualte-total-price";
 
 export class ProductUseCaseFactory {
   static createGetProductWithRestaurantUseCase(
@@ -21,5 +23,14 @@ export class ProductUseCaseFactory {
     const repositoryProduct = new ProductHttpRepository(prisma);
     const repositoryRestaurant = new RestaurantRepositoryDataBase(prisma);
     return new ListProductUseCase(repositoryProduct, repositoryRestaurant);
+  }
+
+  static calculateTotalPrice(
+    product: ProductProps,
+    prisma: PrismaClient,
+  ): number {
+    const repositoryProduct = new ProductHttpRepository(prisma);
+    const calculate = new CalculatteTotalPriceUseCase(repositoryProduct);
+    return calculate.execute(product);
   }
 }

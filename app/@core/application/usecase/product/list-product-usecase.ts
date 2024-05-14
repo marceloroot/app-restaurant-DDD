@@ -1,6 +1,9 @@
 import { ProductRepository } from "@/app/@core/domain/repository/product";
-import { ProductWithRestaurant } from "./DTO/product-with-restaurant-DTO";
+
 import { RestaurantRepository } from "@/app/@core/domain/repository/restaurant";
+import { ProductWithRestaurant } from "./DTO/product-with-restaurant-DTO";
+import { ProductProps } from "@/app/@core/domain/entities/product";
+import { RestauranttProps } from "@/app/@core/domain/entities/restaurant";
 
 export class ListProductUseCase {
   constructor(
@@ -18,9 +21,30 @@ export class ListProductUseCase {
       );
       if (!restaurant) continue;
       product.associateRestaurant(restaurant);
-      productsWithRestaurant.push(
-        new ProductWithRestaurant(product, restaurant),
-      );
+
+      const productDTO: ProductProps = {
+        id: product.id,
+        categoryId: product.categoryId,
+        createdAt: product.createdAt,
+        description: product.description,
+        discountPercentage: product.discountPercentage,
+        imageUrl: product.imageUrl,
+        name: product.name,
+        price: product.price,
+        restaurantId: product.restaurantId,
+      };
+      const restaurantDTO: RestauranttProps = {
+        id: restaurant.id,
+        deliveryFee: restaurant.deliveryFee,
+        deliveryTimeMinutes: restaurant.deliveryTimeMinutes,
+        imageUrl: restaurant.imageUrl,
+        name: restaurant.name,
+      };
+
+      productsWithRestaurant.push({
+        product: productDTO,
+        restaurant: restaurantDTO,
+      });
     }
     return productsWithRestaurant.length > 0 ? productsWithRestaurant : [];
   }

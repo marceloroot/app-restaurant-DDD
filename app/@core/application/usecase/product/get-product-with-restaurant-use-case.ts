@@ -37,6 +37,11 @@ export class GetProductWithRestaurantUseCase {
       imageUrl: restaurant.imageUrl,
       name: restaurant.name,
     };
-    return new ProductWithRestaurant(productDTO, restaurantDTO);
+    const productWhitRestaurant = {
+      product: productDTO,
+      restaurant: restaurantDTO,
+    };
+
+    return productWhitRestaurant;
   }
 }
