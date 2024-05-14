@@ -1,4 +1,3 @@
-import { formatCurrency } from "@/app/@core/application/service/formats/format-currency";
 import {
   Registry,
   container,
@@ -20,6 +19,9 @@ interface ProductPageProps {
 const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   const getProductWithRestaurant =
     ProductUseCaseFactory.createGetProductWithRestaurantUseCase(db);
+  const listProductWithRestaurant =
+    ProductUseCaseFactory.createListProductWithRestaurantUseCase(db);
+  const listProducts = await listProductWithRestaurant.execute();
   const productWithRestaurant = await getProductWithRestaurant.execute(id);
   if (!productWithRestaurant) return notFound();
   const useCase = container.get<CalculatteTotalPriceUseCase>(
@@ -28,17 +30,20 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   const priceWithDiscount = await useCase.execute(
     productWithRestaurant.product,
   );
-  const formatter = new formatCurrency();
-  const formattedPrice = formatter.execute(productWithRestaurant.product.price);
-  const formattedWithDiscont = formatter.execute(priceWithDiscount);
 
+  const listProductsCategory = listProducts.filter(
+    (productRestaurant) =>
+      productRestaurant.product.categoryId ==
+      productWithRestaurant.product.categoryId,
+  );
+  console.log("listProductsCategory", listProductsCategory);
   return (
     <div>
       <ProductImage product={productWithRestaurant.product} />
       <ProductDetails
-        product={productWithRestaurant.product}
-        restaurant={productWithRestaurant.restaurant}
+        productWhitRestaurant={productWithRestaurant}
         priceWithDiscount={priceWithDiscount}
+        productComplementary={listProductsCategory}
       />
     </div>
   );
