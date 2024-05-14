@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 import {
@@ -9,22 +10,23 @@ import { CalculatteTotalPriceUseCase } from "../@core/application/usecase/produc
 import { ArrowDownIcon } from "lucide-react";
 import Link from "next/link";
 import { ProductWithRestaurant } from "../@core/application/usecase/product/DTO/product-with-restaurant-DTO";
+import { ProductUseCaseFactory } from "../@core/infra/factory/usecase/produc-use-case";
+import { db } from "../@core/infra/Prisma/prisma";
 
 interface ProductItemProps {
   productWithRestaurant: ProductWithRestaurant;
 }
 
-const ProductItem = async ({ productWithRestaurant }: ProductItemProps) => {
+const ProductItem = ({ productWithRestaurant }: ProductItemProps) => {
   const formatter = new formatCurrency();
   const formattedPrice = formatter.execute(productWithRestaurant.product.price);
-  const useCase = container.get<CalculatteTotalPriceUseCase>(
-    Registry.CalculatteTotalPriceUseCase,
-  );
-  const priceWithDiscount = await useCase.execute(
+
+  const calaculate = ProductUseCaseFactory.calculateTotalPrice(
     productWithRestaurant.product,
+    db,
   );
 
-  const formattedDiscont = formatter.execute(priceWithDiscount);
+  const formattedDiscont = formatter.execute(calaculate);
 
   return (
     <Link

@@ -8,9 +8,6 @@ import { db } from "@/app/_lib/prisma";
 import CategoryItem from "./category-item";
 
 const CategoreList = async () => {
-  //pegar categoria do banco de dados
-  //renderizar um item para cada categoria
-
   const useCase = container.get<ListCategoryUseCase>(
     Registry.ListCategoryUseCase,
   );
