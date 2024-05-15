@@ -54,4 +54,30 @@ export class ProductHttpRepository implements ProductRepository {
       restaurantId: productPrisma.restaurantId,
     });
   }
+  async findAllByCategoryAndRestaurant(
+    idCategory: string,
+    idRestaurant: string,
+  ): Promise<Product[]> {
+    const productsPrisma = await this.prisma.product.findMany({
+      where: {
+        categoryId: idCategory,
+        restaurantId: idRestaurant,
+      },
+    });
+
+    const products: Product[] = productsPrisma.map((data) => {
+      return new Product({
+        id: data.id,
+        categoryId: data.categoryId,
+        createdAt: data.createdAt,
+        description: data.description,
+        discountPercentage: data.discountPercentage,
+        imageUrl: data.imageUrl,
+        name: data.name,
+        price: Number(data.price),
+        restaurantId: data.restaurantId,
+      });
+    });
+    return products;
+  }
 }

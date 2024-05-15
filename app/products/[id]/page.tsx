@@ -21,7 +21,6 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
     ProductUseCaseFactory.createGetProductWithRestaurantUseCase(db);
   const listProductWithRestaurant =
     ProductUseCaseFactory.createListProductWithRestaurantUseCase(db);
-  const listProducts = await listProductWithRestaurant.execute();
   const productWithRestaurant = await getProductWithRestaurant.execute(id);
   if (!productWithRestaurant) return notFound();
   const useCase = container.get<CalculatteTotalPriceUseCase>(
@@ -30,13 +29,15 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   const priceWithDiscount = await useCase.execute(
     productWithRestaurant.product,
   );
+  const listProductWithRestaurantCategoryRestaurant =
+    ProductUseCaseFactory.createListProductByCategoryIdRestaurantIdtUseCase(db);
 
-  const listProductsCategory = listProducts.filter(
-    (productRestaurant) =>
-      productRestaurant.product.categoryId ==
+  const listProductsCategory =
+    await listProductWithRestaurantCategoryRestaurant.execute(
       productWithRestaurant.product.categoryId,
-  );
-  console.log("listProductsCategory", listProductsCategory);
+      productWithRestaurant.restaurant.id,
+    );
+
   return (
     <div>
       <ProductImage product={productWithRestaurant.product} />

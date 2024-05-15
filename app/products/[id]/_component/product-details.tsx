@@ -42,7 +42,7 @@ const ProductDetails = ({
       return currentState - 1;
     });
   return (
-    <div className="py-5">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
       <div className="flex items-center gap-[0.375rem] px-5">
         <div className="relative h-6 w-6">
           <Image
@@ -133,6 +133,9 @@ const ProductDetails = ({
       <div className="mt-6 space-y-3 ">
         <h3 className="px-5 font-semibold">Outros Produtos</h3>
         <ProducList productWithRestaurants={productComplementary} />
+      </div>
+      <div className="px-5">
+        <Button className="mt-6 w-full font-semibold">Adicionar Sacola</Button>
       </div>
     </div>
   );
